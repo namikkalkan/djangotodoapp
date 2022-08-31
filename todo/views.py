@@ -11,10 +11,14 @@ def index(request):
    context= {'num1' : 120,
               'numbers' :[1,2,3,4,5,6,7]}'''
     todos = Todo.objects.all()
-    return render(request, 'index.html', {'todos': todos })
+    todos_reversed = todos[::-1]
+    return render(request, 'index.html', {'todos_reversed': todos_reversed })
+
 def addTodo (request):
+    todos = Todo.objects.all()
+    todos_reversed = todos[::-1]
     if request.method == "GET" :
-        return redirect('/')
+        return redirect ('/')
     else:
         title = request.POST.get ('title')
         newTodo = Todo(title = title, completed = False)

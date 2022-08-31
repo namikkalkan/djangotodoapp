@@ -11,57 +11,54 @@
 
     <div style = 'margin-top:130px' class="container">
         <h3>Todo List</h3>
-        <hr>      <! –– alta cizgi ceker – –>
+        <hr>
 
         <form action="addTodo"  method = 'post' >
             {% csrf_token %}
 
           <div class="form-group">
-            <label for="uname">Todo </label>
-            <input type="text" class="form-control" id="uname" placeholder="Todo giriniz" name="title" >
+
+            <input type="text" class="form-control" id="uname" placeholder="Please add a task" name="title" >
 
           </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
         <hr>
 
-        {% if todos  %}
-        <table class ="table">
-            <thead>
-                <tr>
-                      <th scope="col">id</th>
-                      <th scope="col">Title</th>
-                      <th scope="col">Durum</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                 </tr>
-            </thead>
-                    <tbody>
-
-                {% for todo in todos %}
+        {% if todos_reversed  %}
+            <table class ="table">
+                <thead>
                     <tr>
-                          <th scope="row">{{todo.id}}</th>
-                          <td>{{todo.title}}</td>
-                            {% if todo.completed%}
-                                <td>tamamlandi </td>
-                            {% else %}
-                                <td>tamamlanmadi </td>
-                            {% endif %}
+                          <th scope="col">id</th>
+                          <th scope="col">Title</th>
+                          <th scope="col">Status</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                     </tr>
+                </thead>
+                <tbody>
 
-                          <td><a href='/update/{{todo.id}}' class = 'btn btn-danger'> Guncelle</a></td>
-                          <td><a href='/delete/{{todo.id}}' class = 'btn btn-danger'> sil</a></td>
-                    </tr>
-                {% endfor %}
-        </table>
+                    {% for todo in todos_reversed %}
+                        <tr>
+                              <th scope="row">{{todo.id}}</th>
+                              <td>{{todo.title}}</td>
+                                {% if todo.completed%}
+                                    <td>Done </td>
+                                {% else %}
+                                    <td>In progress </td>
+                                {% endif %}
 
+                              <td><a href='/update/{{todo.id}}' class = 'btn btn-danger'> Update</a></td>
+                              <td><a href='/delete/{{todo.id}}' class = 'btn btn-danger'> Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                <tbody>
+            </table>
 
-
-
-  </tbody>
         {% else %}
-        <div class = 'alert alert-danger' >
-        Herhangi bir todo yok,,,
-        </div>
+            <div class = 'alert alert-danger' >
+            There is no task yet
+            </div>
 
         {% endif %}
 
@@ -71,7 +68,7 @@
 </table>
 
             </div>
-
+ </tbody>
 
 
 
