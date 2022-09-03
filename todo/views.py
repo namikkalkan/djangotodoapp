@@ -48,6 +48,46 @@ def api(request):
                 }
     return Response (api_urls)
 
+
+@api_view(['GET','DELETE','POST'])
+def api(request):
+    if request.method == "GET":
+        tasks = Todo.objects.all()
+        serializer = productSerializer(tasks, many=True)
+        return Response(serializer.data)
+    elif request.method == "DELETE":
+        task = Todo.objects.all()
+        task.delete()
+        return Response('Item deleted')
+    elif request.method == "POST":
+        serializer = productSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+
+
+
+@api_view(['GET','DELETE','PUT'])
+def api1(request,id):
+    if request.method == "GET":
+        tasks = Todo.objects.get(id=id)
+        serializer = productSerializer(tasks, many=False)
+        return Response(serializer.data)
+    elif request.method == "DELETE":
+        task = Todo.objects.get(id=id)
+        task.delete()
+        return Response('Item deleted')
+    elif request.method == "PUT":
+        task = Todo.objects.get(id=id)
+        serializer = productSerializer(instance=task, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
+
+
+
+
+'''
 @api_view(['GET'])
 def task_api(request):
     tasks = Todo.objects.all()
@@ -77,3 +117,4 @@ def task_delete_api(request, pk ):
     task.delete()
     return Response('Item deleted')
 
+'''
