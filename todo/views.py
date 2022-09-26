@@ -4,7 +4,7 @@ from .models  import Todo
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import productSerializer
-
+from  djangotodoapp.settings import *
 # Create your views here.
 def index(request):
     '''return HttpResponse('Anasayfa')
@@ -85,6 +85,10 @@ def api1(request,id):
         return Response(serializer.data)
 
 
+def maps(request):
+
+
+		return render(request, 'maps.html')
 
 
 '''

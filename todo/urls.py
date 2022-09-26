@@ -12,7 +12,7 @@ urlpatterns = [
     path('api/',views.api),
     path('api/tasks', views.api),
     path('api/tasks/<int:id>', views.api1),
-
+    path('maps',views.maps),
 ]
 
 '''
